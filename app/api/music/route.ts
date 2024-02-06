@@ -33,7 +33,7 @@ export async function POST(
     }
 
     const response = await replicate.run(
-      "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05",
+      "fofr/any-comfyui-workflow:a37d8152be50e96d987e792e59c7a642e6af941df85b288e1a09d8c4a0c409d7",
       {
         input: {
           prompt_a: prompt
