@@ -1,10 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "googleusercontent.com",
-      "oaidalleapiprodscus.blob.core.windows.net",
-      "cdn.openai.com"
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'googleusercontent.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.openai.com',
+        pathname: '**',
+      },
     ]
   },
 }
