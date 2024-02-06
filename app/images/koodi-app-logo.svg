@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Layer_2"
+   data-name="Layer 2"
+   viewBox="0 0 500 499.99997"
+   version="1.1"
+   sodipodi:docname="koodi-app-logo.svg"
+   width="500"
+   height="500"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.46297639"
+     inkscape:cx="4.3198747"
+     inkscape:cy="-11.879655"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g12"
+     inkscape:export-bgcolor="#ffffff00" />
+  <defs
+     id="defs1">
+    <style
+       id="style1">
+      .cls-1 {
+        fill: #faf3dd;
+      }
+
+      .cls-2 {
+        fill: #ffbb91;
+      }
+    </style>
+  </defs>
+  <path
+     d="M 0.94754576,0.94754576 V 499.75 M 31.152369,0.94754576 V 499.75 M 61.357192,0.94754576 V 499.75 M 91.562016,0.94754576 V 499.75 M 121.76684,0.94754576 V 499.75 M 151.97167,0.94754576 V 499.75 M 182.17648,0.94754576 V 499.75 M 212.38131,0.94754576 V 499.75 M 242.58614,0.94754576 V 499.75 M 272.79095,0.94754576 V 499.75 M 302.99578,0.94754576 V 499.75 M 333.20061,0.94754576 V 499.75 M 363.40542,0.94754576 V 499.75 M 393.61025,0.94754576 V 499.75 M 423.81508,0.94754576 V 499.75 M 454.01989,0.94754576 V 499.75 M 484.22472,0.94754576 V 499.75 M 0.94754576,0.94754576 H 499.75 M 0.94754576,76.915017 H 499.75 M 0.94754576,152.88249 H 499.75 M 0.94754576,228.84996 H 499.75 M 0.94754576,304.81744 H 499.75 M 0.94754576,380.7849 H 499.75 M 0.94754576,456.75238 H 499.75"
+     style="display:none;fill:none;stroke:#000000;stroke-width:2.39509px"
+     id="path6" />
+  <g
+     id="g8"
+     inkscape:label="Short-Logo"
+     transform="scale(10.052083,9.9522293)">
+    <path
+       class="cls-1"
+       d="m 0,0 h 9.38 v 28.94 c 0.54,0.07 1.07,0.07 1.61,0.07 5.36,0 9.38,-3.55 9.38,-9.65 0,-1.07 0,-2.01 -0.13,-3.82 h 8.98 c 0.13,1.27 0.2,2.28 0.2,3.95 0,5.63 -2.01,11.46 -7.37,14.74 l 9.38,16.01 H 20.91 l -7.44,-13.4 c -0.67,0.07 -1.41,0.07 -2.14,0.07 -0.6,0 -1.27,0 -1.94,-0.07 v 13.4 H 0 Z"
+       id="path1"
+       style="fill:#000000" />
+    <path
+       class="cls-1"
+       d="m 28.388762,40.518697 c 0,-5.674268 4.075174,-9.75 9.734267,-9.75 5.65909,0 9.765733,4.075732 9.765733,9.75 0,5.674266 -4.111888,9.75 -9.765733,9.75 -5.653847,0 -9.734267,-4.112784 -9.734267,-9.75 z m 14.548951,-0.06881 c 0,-3.154724 -1.93007,-5.356677 -4.814684,-5.356677 -2.884617,0 -4.814687,2.19666 -4.814687,5.356677 0,3.160017 1.966783,5.425489 4.814687,5.425489 2.847901,0 4.814684,-2.233714 4.814684,-5.425489 z"
+       id="path2"
+       style="fill:#000000;stroke-width:0.526891" />
+  </g>
+  <g
+     id="g10"
+     inkscape:label="main logo megenta">
+    <rect
+       style="fill:#4d004d;fill-opacity:1;fill-rule:evenodd;stroke:#ffbb00;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;paint-order:normal"
+       id="rect8"
+       width="500"
+       height="500"
+       x="-365.02939"
+       y="-635.02161"
+       ry="125.68306" />
+    <g
+       id="g9"
+       inkscape:label="Short-Logo"
+       transform="matrix(7.5263027,0,0,7.4515392,-295.24205,-572.31119)"
+       style="fill:#ffffff">
+      <path
+         class="cls-1"
+         d="m 0,0 h 9.38 v 28.94 c 0.54,0.07 1.07,0.07 1.61,0.07 5.36,0 9.38,-3.55 9.38,-9.65 0,-1.07 0,-2.01 -0.13,-3.82 h 8.98 c 0.13,1.27 0.2,2.28 0.2,3.95 0,5.63 -2.01,11.46 -7.37,14.74 l 9.38,16.01 H 20.91 l -7.44,-13.4 c -0.67,0.07 -1.41,0.07 -2.14,0.07 -0.6,0 -1.27,0 -1.94,-0.07 v 13.4 H 0 Z"
+         id="path8"
+         style="fill:#ffffff" />
+      <path
+         class="cls-1"
+         d="m 28.388762,40.518697 c 0,-5.674268 4.075174,-9.75 9.734267,-9.75 5.65909,0 9.765733,4.075732 9.765733,9.75 0,5.674266 -4.111888,9.75 -9.765733,9.75 -5.653847,0 -9.734267,-4.112784 -9.734267,-9.75 z m 14.548951,-0.06881 c 0,-3.154724 -1.93007,-5.356677 -4.814684,-5.356677 -2.884617,0 -4.814687,2.19666 -4.814687,5.356677 0,3.160017 1.966783,5.425489 4.814687,5.425489 2.847901,0 4.814684,-2.233714 4.814684,-5.425489 z"
+         id="path9"
+         style="fill:#ffffff;stroke-width:0.526891" />
+    </g>
+  </g>
+  <g
+     id="g12"
+     inkscape:label="main logo transparent"
+     transform="translate(952.53237,676.06039)">
+    <rect
+       style="display:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ffbb00;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;paint-order:normal"
+       id="rect10"
+       width="500"
+       height="500"
+       x="-365.02939"
+       y="-635.02161"
+       ry="125.68306" />
+    <g
+       id="g11"
+       inkscape:label="Short-Logo"
+       transform="matrix(7.5263027,0,0,7.4515392,-295.24205,-572.31119)"
+       style="fill:#4d004d;fill-opacity:1"
+       inkscape:export-filename="white.png"
+       inkscape:export-xdpi="133.17601"
+       inkscape:export-ydpi="133.17601">
+      <path
+         class="cls-1"
+         d="m 0,0 h 9.38 v 28.94 c 0.54,0.07 1.07,0.07 1.61,0.07 5.36,0 9.38,-3.55 9.38,-9.65 0,-1.07 0,-2.01 -0.13,-3.82 h 8.98 c 0.13,1.27 0.2,2.28 0.2,3.95 0,5.63 -2.01,11.46 -7.37,14.74 l 9.38,16.01 H 20.91 l -7.44,-13.4 c -0.67,0.07 -1.41,0.07 -2.14,0.07 -0.6,0 -1.27,0 -1.94,-0.07 v 13.4 H 0 Z"
+         id="path10"
+         style="fill:#4d004d;fill-opacity:1" />
+      <path
+         class="cls-1"
+         d="m 28.388762,40.518697 c 0,-5.674268 4.075174,-9.75 9.734267,-9.75 5.65909,0 9.765733,4.075732 9.765733,9.75 0,5.674266 -4.111888,9.75 -9.765733,9.75 -5.653847,0 -9.734267,-4.112784 -9.734267,-9.75 z m 14.548951,-0.06881 c 0,-3.154724 -1.93007,-5.356677 -4.814684,-5.356677 -2.884617,0 -4.814687,2.19666 -4.814687,5.356677 0,3.160017 1.966783,5.425489 4.814687,5.425489 2.847901,0 4.814684,-2.233714 4.814684,-5.425489 z"
+         id="path11"
+         style="fill:#4d004d;fill-opacity:1;stroke-width:0.526891" />
+    </g>
+  </g>
+  <g
+     id="g5"
+     inkscape:label="main logo white"
+     transform="translate(708.45942,2.1599392)"
+     inkscape:export-filename="white.png"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ffbb00;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;paint-order:normal"
+       id="rect1"
+       width="500"
+       height="500"
+       x="-365.02939"
+       y="-635.02161"
+       ry="125.68306" />
+    <g
+       id="g4"
+       inkscape:label="Short-Logo"
+       transform="matrix(7.5263027,0,0,7.4515392,-295.24205,-572.31119)"
+       style="fill:#4d004d;fill-opacity:1">
+      <path
+         class="cls-1"
+         d="m 0,0 h 9.38 v 28.94 c 0.54,0.07 1.07,0.07 1.61,0.07 5.36,0 9.38,-3.55 9.38,-9.65 0,-1.07 0,-2.01 -0.13,-3.82 h 8.98 c 0.13,1.27 0.2,2.28 0.2,3.95 0,5.63 -2.01,11.46 -7.37,14.74 l 9.38,16.01 H 20.91 l -7.44,-13.4 c -0.67,0.07 -1.41,0.07 -2.14,0.07 -0.6,0 -1.27,0 -1.94,-0.07 v 13.4 H 0 Z"
+         id="path3"
+         style="fill:#4d004d;fill-opacity:1" />
+      <path
+         class="cls-1"
+         d="m 28.388762,40.518697 c 0,-5.674268 4.075174,-9.75 9.734267,-9.75 5.65909,0 9.765733,4.075732 9.765733,9.75 0,5.674266 -4.111888,9.75 -9.765733,9.75 -5.653847,0 -9.734267,-4.112784 -9.734267,-9.75 z m 14.548951,-0.06881 c 0,-3.154724 -1.93007,-5.356677 -4.814684,-5.356677 -2.884617,0 -4.814687,2.19666 -4.814687,5.356677 0,3.160017 1.966783,5.425489 4.814687,5.425489 2.847901,0 4.814684,-2.233714 4.814684,-5.425489 z"
+         id="path4"
+         style="fill:#4d004d;fill-opacity:1;stroke-width:0.526891" />
+    </g>
+  </g>
+</svg>
