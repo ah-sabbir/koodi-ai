@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
 //import { CreateChatCompletionRequestMessage } from "openai/resources/chat"
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+//import {ChatCompletionMessageParam} from 'openai/resources'
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -126,7 +127,9 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
+                <ReactMarkdown 
+		children = {}
+		components={{
                   pre: ({ node, ...props }) => (
                     <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
                       <pre {...props} />
