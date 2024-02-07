@@ -61,7 +61,7 @@ const CodePage = () => {
   }
 
   return ( 
-    <div>
+    <>
       <Heading
         title="Code Generation"
         description="Generate code using descriptive text."
@@ -146,7 +146,7 @@ const CodePage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
    );
 }
  
