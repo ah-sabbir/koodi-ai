@@ -136,7 +136,7 @@ const CodePage = () => {
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                 <Markdown 
-                  children={markdown}
+                  children={message.content?.toString() || ''}
 		              components={{
                   pre: ({ node, ...props }) => (
                     <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
@@ -150,10 +150,11 @@ const CodePage = () => {
                       <SyntaxHighlighter
                         {...rest}
                         PreTag="div"
-                        children={String(children).replace(/\n$/, '')}
                         language={match[1]}
                         style={''}
-                      />
+                      >
+                        {children}
+                        </SyntaxHighlighter>
                     ) : (
                       <code className="bg-black/10 rounded-lg p-1" {...props} />
                     )
