@@ -10,8 +10,12 @@ import { toast } from "react-hot-toast";
 import Markdown from 'react-markdown'
 import { useRouter } from "next/navigation";
 //import { CreateChatCompletionRequestMessage } from "openai/resources/chat"
-import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+//import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 //import {ChatCompletionMessageParam} from 'openai/resources'
+
+import ChatCompletionRequestMessage from "openai/resources/chat/completions";
+
+//import ChatCompletionRequestMessage from 'openai;
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -37,7 +41,7 @@ console.log('It works!')
 const CodePage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,7 +54,7 @@ const CodePage = () => {
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionMessageParam = { role: "user", content: values.prompt };
+      const userMessage: any = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
       const response = await axios.post('/api/code', { messages: newMessages });
@@ -135,7 +139,7 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <pre><code><Markdown>{message.content?.toString()}</Markdown></code></pre>
+                <pre><code>{message.content?.toString()}</code></pre>
               </div>
             ))}
           </div>

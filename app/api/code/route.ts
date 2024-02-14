@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+//import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 import OpenAI from "openai"
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
@@ -21,7 +21,7 @@ const openrouter = new OpenAI({
 
 //const openai = new OpenAIApi(configuration);
 
-const instructionMessage: ChatCompletionRequestMessage = {
+const instructionMessage: any = {
   role: "system",
   content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations."
 };

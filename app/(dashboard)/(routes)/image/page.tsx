@@ -22,6 +22,8 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
 
+
+
 const PhotoPage = () => {
   const proModal = useProModal();
   const router = useRouter();
@@ -57,6 +59,10 @@ const PhotoPage = () => {
       router.refresh();
     }
   }
+
+
+
+
 
   return ( 
     <div>
