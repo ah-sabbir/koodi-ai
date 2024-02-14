@@ -6,7 +6,8 @@ import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import ReactMarkdown from 'react-markdown'
+//import ReactMarkdown from 'react-markdown'
+import Markdown from 'react-markdown'
 import { useRouter } from "next/navigation";
 //import { CreateChatCompletionRequestMessage } from "openai/resources/chat"
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
@@ -134,20 +135,7 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown 
-                  children={message.content?.toString() || defaultMarkdown}
-		              components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node:any, ...props }:any) => {
-
-                    return  <code className="bg-black/10 rounded-lg p-1" {...props} />
-
-                  }
-                }} className="text-sm overflow-hidden leading-7"/>
+                <pre><code><Markdown>{message.content?.toString()}</Markdown></code></pre>
               </div>
             ))}
           </div>
