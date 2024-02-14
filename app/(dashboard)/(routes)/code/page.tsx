@@ -23,7 +23,6 @@ import { Loader } from "@/components/loader";
 import { UserAvatar } from "@/components/user-avatar";
 import { Empty } from "@/components/ui/empty";
 import { useProModal } from "@/hooks/use-pro-modal";
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import { formSchema } from "./constants";
 
 const markdown = `Here is some JavaScript code:
@@ -144,20 +143,9 @@ const CodePage = () => {
                     </div>
                   ),
                   code: ({ node:any, ...props }:any) => {
-                    const {children, className, node, ...rest} = props
-                    const match = /language-(\w+)/.exec(className || '')
-                    return match ? (
-                      <SyntaxHighlighter
-                        {...rest}
-                        PreTag="div"
-                        language={match[1]}
-                        style={''}
-                      >
-                        {children}
-                        </SyntaxHighlighter>
-                    ) : (
-                      <code className="bg-black/10 rounded-lg p-1" {...props} />
-                    )
+
+                    return  <code className="bg-black/10 rounded-lg p-1" {...props} />
+
                   }
                 }} className="text-sm overflow-hidden leading-7"/>
               </div>
