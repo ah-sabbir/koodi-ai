@@ -129,7 +129,7 @@ const CodePage = () => {
           {messages.length === 0 && !isLoading && (
             <Empty label="No conversation started." />
           )}
-          <div className="flex flex-col-reverse gap-y-4">
+          <div className="flex flex-col-reverse gap-y-4 flex-wrap">
             {messages.map((message,i) => (
               <div 
                 key={i} 
@@ -139,7 +139,7 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <pre><code>{message.content?.toString()}</code></pre>
+                {message.role === "user" ? <p>{message.content?.toString()}</p>:<pre><code className=" overflow-x-scroll">{message.content?.toString()}</code></pre>}
               </div>
             ))}
           </div>

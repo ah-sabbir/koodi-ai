@@ -23,7 +23,7 @@ const openrouter = new OpenAI({
 
 const instructionMessage: any = {
   role: "system",
-  content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations."
+  content: "You are an expert software engineer and software developer you can solve and write clean code as per other's needs. also, you're a code generator too. You must answer only in markdown code snippets. Use code comments for explanations."
 };
 
 export async function POST(
@@ -54,14 +54,14 @@ export async function POST(
     }
 
     const response = await openrouter.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "openrouter/auto",
       messages: [instructionMessage, ...messages]
     });
 
     if (!isPro) {
       await incrementApiLimit();
     }
-    //console.log('[CODE_API_RESPONSE]', response)
+    console.log('[CODE_API_RESPONSE]', response)
     return NextResponse.json(response.choices[0].message);
   } catch (error) {
     console.log('[CODE_ERROR]', error);
