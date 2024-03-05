@@ -139,7 +139,7 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                {message.role === "user" ? <p>{message.content?.toString()}</p>:<pre><code className=" overflow-x-scroll">{message.content?.toString()}</code></pre>}
+                {message.role === "user" ? <p>{message.content?.toString()}</p>:<pre><code className=" overflow-x-scroll" suppressHydrationWarning>{message.content?.toString()}</code></pre>}
               </div>
             ))}
           </div>

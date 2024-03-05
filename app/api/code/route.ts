@@ -5,10 +5,11 @@ import OpenAI from "openai"
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
+import { client } from "@gradio/client";
+
 //const configuration = new Configuration({
 //  apiKey: process.env.OPENAI_API_KEY,
 //});
-
 
 
 
@@ -81,20 +82,20 @@ export async function POST(
     //   messages: [instructionMessage, ...messages]
     // });
 
-    const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1",{
-      method:'POST',
-      headers: {
-        "Authorization": "Bearer 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",
-        "contentType" : "application/json"
-      },
-      body:JSON.stringify({inputs:"I forgot how to kill a process in Linux, can you help?"})
+    const response = await fetch("https://api-inference.huggingface.co/models/openai-community/gpt2",
+        {
+          headers: { Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}` },
+          method: "POST",
+          body: JSON.stringify({inputs:JSON.stringify(payload)}),
+        }
+      )
 
-    }).then(res=> console.log(res.json()))
+      const result = await response.json();
 
     if (!isPro) {
       await incrementApiLimit();
     }
-    // console.log('[CODE_API_RESPONSE]', response.json())
+    console.log('[CODE_API_RESPONSE]', result)
     return NextResponse.json("response.choices[0].message");
   } catch (error) {
     console.log('[CODE_ERROR]', error);
