@@ -5,7 +5,7 @@ import OpenAI from "openai"
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
-import { client } from "@gradio/client";
+//import { client } from "@gradio/client";
 
 //const configuration = new Configuration({
 //  apiKey: process.env.OPENAI_API_KEY,
