@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai"
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
+import axios from "axios";
 
 //import { client } from "@gradio/client";
 
@@ -14,21 +15,21 @@ import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
 
 
-const openrouter = new OpenAI({
-  baseURL: "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1",
+const client = new OpenAI({
+  baseURL: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
   apiKey: process.env.HUGGINGFACE_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": process.env.YOUR_SITE_URL, // Optional, for including your app on openrouter.ai rankings.
-    "X-Title": process.env.YOUR_SITE_NAME, // Optional. Shows in rankings on openrouter.ai.
-  },
+  // defaultHeaders: {
+  //   "HTTP-Referer": process.env.YOUR_SITE_URL, // Optional, for including your app on openrouter.ai rankings.
+  //   "X-Title": process.env.YOUR_SITE_NAME, // Optional. Shows in rankings on openrouter.ai.
+  // },
   // dangerouslyAllowBrowser: true,
 })
 
 //const openai = new OpenAIApi(configuration);
 
 const payload: any = [{
-  role: "system",
-  content: "You are an expert software engineer and software developer you can solve and write clean code as per other's needs. also, you're a code generator too. You must answer only in markdown code snippets. Use code comments for explanations."
+  "role": "system",
+  "content": "I'm an expert software engineer and software developer I can solve and write clean code as per your needs. also, I'm a code generator too. I must answer only in markdown code snippets. I'll Use code comments for explanations."
 }];
 
 // Add your token from https://huggingface.co/settings/token
@@ -55,7 +56,7 @@ export async function POST(
       content: [...messages]
     }
 
-    // payload.push(payload)
+    payload.push(quest)
     // Req_body.payload = JSON.stringify(payload)
 
     if (!userId) {
@@ -82,21 +83,66 @@ export async function POST(
     //   messages: [instructionMessage, ...messages]
     // });
 
-    const response = await fetch("https://api-inference.huggingface.co/models/openai-community/gpt2",
-        {
-          headers: { Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}` },
-          method: "POST",
-          body: JSON.stringify({inputs:JSON.stringify(payload)}),
-        }
-      )
 
-      const result = await response.json();
+  //   const data = {
+  //     "inputs": {
+  //       "question": "What is the capital of France?"
+  //     }
+  //   };
+
+  //   const response = await fetch(
+  //     "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
+  //     {
+  //         headers: { Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}` },
+  //         method: "POST",
+  //         body: JSON.stringify({"inputs": "Can you please let us know more details about your "}),
+  //     }
+  // );
+  // const result = await response.json();
+
+    const response = await axios({
+      method: 'post',
+      // url: "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
+      // url: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
+      url: "https://api-inference.huggingface.co/models/google/gemma-7b-it",
+      // url: "https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf",
+      // url: "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106",
+      // url: "https://api-inference.huggingface.co/models/deepseek-ai/deepseek-coder-33b-instruct",
+      // url: "https://ahsabbir104-openchat-openchat-3-5-0106.hf.space/run/predict",
+      // url: "https://huggingface.co/chat/api/conversation",
+      headers: {Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`},
+      data: {
+        inputs: JSON.stringify(`Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. Avoid mentioning context as incomplete. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`)
+      }
+    })
+
+
+
+    // .then((res)=>{
+    //   const {data} = res;
+    //   console.log("AXIOS RESPONSE: ",data);
+    // })
+
+
+  // return result;
+
+      const result = await response.data;
+
+    //   client = OpenAI(
+    //     base_url="<ENDPOINT_URL>" + "/v1/",  # replace with your endpoint url
+    //     api_key="<HF_API_TOKEN>",  # replace with your token
+    // )
+
+
 
     if (!isPro) {
       await incrementApiLimit();
     }
-    console.log('[CODE_API_RESPONSE]', result)
-    return NextResponse.json("response.choices[0].message");
+
+    // const content = result[0].generated_text.replace(`Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. Avoid mentioning context as incomplete. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`,``).trim()
+
+    console.log('[CODE_API_RESPONSE]', )
+    return NextResponse.json({role:'bot', content: result[0].generated_text});
   } catch (error) {
     console.log('[CODE_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
