@@ -146,6 +146,6 @@ export async function POST(
     return NextResponse.json({role:'bot', content: result[0].generated_text});
   } catch (error) {
     console.log('[CODE_ERROR]', error);
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse({type:"Internal Error", error:error.toString()}, { status: 500 });
   }
 };
