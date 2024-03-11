@@ -100,22 +100,34 @@ export async function POST(
   // );
   // const result = await response.json();
 
-    const response = await axios({
-      method: 'post',
-      // url: "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
-      // url: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
-      url: "https://api-inference.huggingface.co/models/google/gemma-7b-it",
-      // url: "https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf",
-      // url: "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106",
-      // url: "https://api-inference.huggingface.co/models/deepseek-ai/deepseek-coder-33b-instruct",
-      // url: "https://ahsabbir104-openchat-openchat-3-5-0106.hf.space/run/predict",
-      // url: "https://huggingface.co/chat/api/conversation",
-      headers: {Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`},
-      data: {
+
+const response = await fetch('https://api-inference.huggingface.co/models/google/gemma-7b-it', {
+method: 'POST',
+body:JSON.stringify({
         inputs: JSON.stringify(`Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`)
-      },
-      // responseType: 'stream'
-    })
+      }),
+headers: {
+'content-type': 'application/json',
+'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`
+}
+}).then(res=>res.json());
+
+    // const response = await axios({
+    //   method: 'post',
+    //   // url: "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
+    //   // url: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
+    //   url: "https://api-inference.huggingface.co/models/google/gemma-7b-it",
+    //   // url: "https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf",
+    //   // url: "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106",
+    //   // url: "https://api-inference.huggingface.co/models/deepseek-ai/deepseek-coder-33b-instruct",
+    //   // url: "https://ahsabbir104-openchat-openchat-3-5-0106.hf.space/run/predict",
+    //   // url: "https://huggingface.co/chat/api/conversation",
+    //   headers: {Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`},
+    //   data: {
+    //     inputs: JSON.stringify(`Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`)
+    //   },
+    //   // responseType: 'stream'
+    // })
 
 
 
@@ -127,7 +139,7 @@ export async function POST(
 
   // return result;
 
-      const result = await response.data;
+      const result = await response;
 
     //   client = OpenAI(
     //     base_url="<ENDPOINT_URL>" + "/v1/",  # replace with your endpoint url
