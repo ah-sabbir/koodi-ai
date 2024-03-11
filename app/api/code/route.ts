@@ -102,15 +102,15 @@ export async function POST(
 
 
 const response = await fetch('https://api-inference.huggingface.co/models/google/gemma-7b-it', {
-method: 'POST',
-body:JSON.stringify({
-        inputs: JSON.stringify(`Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`)
-      }),
-headers: {
-'content-type': 'application/json',
-'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`
-}
-}).then(res=>res.json());
+  method: 'POST',
+  body:JSON.stringify({
+          inputs: `Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`
+        }),
+  headers: {
+    'content-type': 'application/json',
+    'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`
+  }
+});
 
     // const response = await axios({
     //   method: 'post',
@@ -139,14 +139,18 @@ headers: {
 
   // return result;
 
-      const result = await response;
+      // const result = await response;
+      if(!response.ok){
+        // return new NextResponse("Internal Error", { status: 500 });
+        return NextResponse.json({message:response.statusText, status:response.status})
+      }
 
     //   client = OpenAI(
     //     base_url="<ENDPOINT_URL>" + "/v1/",  # replace with your endpoint url
     //     api_key="<HF_API_TOKEN>",  # replace with your token
     // )
 
-
+      const result = await response.json();
 
     if (!isPro) {
       await incrementApiLimit();
