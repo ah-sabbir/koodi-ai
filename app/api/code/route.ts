@@ -184,7 +184,7 @@ const response = await fetch('https://api-inference.huggingface.co/models/google
     // const content = result[0].generated_text.replace(`Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. Avoid mentioning context as incomplete. [CONTEXT]: programming. [QUESTION]: ${messages.slice(-1)[0].content} [ANSWER]:`,``).trim()
 
     console.log('[CODE_API_RESPONSE]', result)
-    return NextResponse.json({role:'bot', content: result[0].generated_text});
+    return NextResponse.json({role:'bot', content: "result[0].generated_text"});
   } catch (error) {
     console.log('[CODE_ERROR]', error);
     return NextResponse.json({message:error, status:500})
