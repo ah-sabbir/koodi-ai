@@ -11,31 +11,49 @@ import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 //  apiKey: process.env.OPENAI_API_KEY,
 //});
 
-import Replicate from "replicate";
+// import Replicate from "replicate";
 
 
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN,
-});
+// const replicate = new Replicate({
+//   auth: process.env.REPLICATE_API_TOKEN,
+// });
 
 
 //const openai = new OpenAIApi(configuration);
 
 
-const openrouter = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": process.env.YOUR_SITE_URL, // Optional, for including your app on openrouter.ai rankings.
-    "X-Title": process.env.YOUR_SITE_NAME, // Optional. Shows in rankings on openrouter.ai.
-  },
-  // dangerouslyAllowBrowser: true,
-})
+// const openrouter = new OpenAI({
+//   baseURL: "https://openrouter.ai/api/v1",
+//   apiKey: process.env.OPENROUTER_API_KEY,
+//   defaultHeaders: {
+//     "HTTP-Referer": process.env.YOUR_SITE_URL, // Optional, for including your app on openrouter.ai rankings.
+//     "X-Title": process.env.YOUR_SITE_NAME, // Optional. Shows in rankings on openrouter.ai.
+//   },
+//   // dangerouslyAllowBrowser: true,
+// })
 
-const instructionMessage: any = {
-  role: "system",
-  content: "You are a graphics designer. You must design any graphics or image. Use stable diffusion."
-};
+// const instructionMessage: any = {
+//   role: "system",
+//   content: "You are a graphics designer. You must design any graphics or image. Use stable diffusion."
+// };
+
+
+const getTemplate = (prompt:Zod.ZodString)=> {
+  return JSON.stringify({
+    inputs: `<s>[INST]Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: You are a graphics designer. You must design any graphics or image. Use stable diffusion.. [QUESTION]:${prompt}[/INST]`,
+    parameters: {
+        "return_full_text": false
+    },
+    stream: false,
+    options: {
+        dont_load_model: false,
+        signal: {name: "koodi.ai"},
+        use_cache: true,
+        wait_for_model: true
+    }
+  })
+}
+
 
 
 export async function POST(
@@ -46,8 +64,8 @@ export async function POST(
     const body = await req.json();
     const { prompt, amount = 1, resolution = "512x512" } = body;
 
-console.log('[USER_ID]',userId)
-  const guser = await fetch(`https://api.clerk.com/v1/users/${userId}/oauth_access_tokens/google`)
+// console.log('[USER_ID]',userId)
+  // const guser = await fetch(`https://api.clerk.com/v1/users/${userId}/oauth_access_tokens/google`)
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -96,14 +114,50 @@ console.log('[USER_ID]',userId)
  // })
 
 //console.log('[IMAGE-GENERATOR]', response)
-console.log('[PROMPT]', prompt)
+// console.log('[PROMPT]', prompt)
 
 
-    if (!isPro) {
-      await incrementApiLimit();
-    }
+const response = await fetch(
+  'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', 
+  //   // url: "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
+  //   // url: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
+  //   url: "https://api-inference.huggingface.co/models/google/gemma-7b-it",
+  //   // url: "https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf",
+  //   // url: "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106",
+  //   // url: "https://api-inference.huggingface.co/models/deepseek-ai/deepseek-coder-33b-instruct",
+  //   // url: "https://ahsabbir104-openchat-openchat-3-5-0106.hf.space/run/predict",
+  {
+  method: 'POST',
+  body:getTemplate(prompt),
+  headers: {
+    'content-type': 'application/json',
+    'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`
+  }
+});
 
-    return NextResponse.json({status:200});
+const blob  = await response.blob();
+const newBlob = new Blob([blob]);
+
+const headers = new Headers();
+
+headers.set("Content-Type", "image/*");
+
+// const blob = await response.blob();
+// let ab = await blob.arrayBuffer();
+// let object = {
+//   image: Array.from(new Uint8Array(ab)),
+//   name: "image",
+// };
+
+// return object;
+
+// Access Limit for the users
+    // if (!isPro) {
+    //   await incrementApiLimit();
+    // }
+  // console.log('[IMAGE_API_RESPONSE]', newBlob)
+  return new NextResponse(blob, { status: 200, statusText: "OK", headers });
+    // return NextResponse.json({status:200, img: newBlob});
   } catch (error) {
     console.log('[IMAGE_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });

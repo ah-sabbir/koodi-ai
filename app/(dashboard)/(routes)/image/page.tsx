@@ -45,8 +45,19 @@ const PhotoPage = () => {
       setPhotos([]);
 
       const response = await axios.post('/api/image', values);
+      const blob = await response.data();
 
-      const urls = response.data.map((image: { url: string }) => image.url);
+      // const imageStringify = await requestImg(data);
+      // const binaryData = Buffer.from(imageStringify.image);
+
+      // const imageBase64 = URL.createObjectURL(
+      //   new Blob([binaryData.buffer], { type: "image/jpeg" } /* (1) */)
+      // );
+
+      console.log('[IMAGE_CLIENT_RESPONSE]', blob)
+
+      // const urls = response.data.map((image: { url: string }) => image.url);
+      const urls = ["",""]
 
       setPhotos(urls);
     } catch (error: any) {
