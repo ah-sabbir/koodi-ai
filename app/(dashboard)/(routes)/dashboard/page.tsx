@@ -3,13 +3,29 @@
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import { useEffect } from "react";
+
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+
 
 import { tools } from "@/constants";
 
 export default function HomePage() {
   const router = useRouter();
+
+  const getModels = async()=>{
+    const res = await fetch("https://huggingface.co/api/models",{
+      method:"GET"
+    })
+
+    const models = await res.json();
+    return models;
+  }
+
+  useEffect(()=>{
+    console.log(getModels());
+  },[])
 
   return (
     <div>
