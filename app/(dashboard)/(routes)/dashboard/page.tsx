@@ -24,7 +24,7 @@ export default function HomePage() {
   }
 
   useEffect(()=>{
-    console.log(getModels());
+    getModels().then((res)=>{console.log(res)});
   },[])
 
   return (
