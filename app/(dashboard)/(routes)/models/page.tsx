@@ -25,7 +25,11 @@ export default function ModelPage() {
   }
 
   useEffect(()=>{
-    getModels().then((res)=>setModelState(res));
+    const mdb:any = localStorage.getItem('modelData')
+    if(mdb!==null){
+      setModelState(JSON.parse(mdb))
+    }
+    getModels().then((res)=>localStorage.setItem('modelData', JSON.stringify((res))));
   },[])
 
   return (
@@ -45,12 +49,12 @@ export default function ModelPage() {
               <div className={cn("p-2 w-fit rounded-md", "tool.bgColor")}>
                 {/* <tool.icon className={cn("w-8 h-8", "tool.color")} /> */}
               </div>
-              <div className="font-semibold">
+              <div className="font-semibold flex flex-row justify-between items-center">
                 <div>
                     {tool?.id}
                 </div>
                 <div>
-                    {tool?.private}
+                    Free
                 </div>
               </div>
             </div>

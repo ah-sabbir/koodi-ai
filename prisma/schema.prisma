@@ -24,3 +24,15 @@ model UserSubscription {
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 }
+
+
+model UserApp {
+  id        String @id @default(cuid())
+  userId    String @unique
+  appName   String
+  appTitle  String @unique @map(name: "app_title")
+  appDescription    String @unique @map(name: "app_description")
+  appModelId        String @unique @map(name: "app_model_id")
+  appInstruction    String @map(name: "app_instruction")
+  appUsage          Int    @default(0)
+}
