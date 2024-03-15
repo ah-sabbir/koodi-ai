@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 
@@ -10,15 +10,10 @@ import { cn } from "@/lib/utils";
 
 
 import { tools } from "@/constants";
-import { any } from "zod";
-import { getModels } from "@/app/actions/getModels";
-import ModelCard from "@/components/modelCard";
 
-export default async function HomePage() {
-//   const router = useRouter();
-  const [modelState, setModelState] = useState([])
-//   const INITIAL_NUMBER_OF_USERS:number = 10
-//   const initialUsers = await getModels( 0, INITIAL_NUMBER_OF_USERS)
+export default function ModelPage() {
+  const router = useRouter();
+  const [modelState, setModelState] = useState<any[]>([])
 
   const getModels = async()=>{
     const res = await fetch("https://huggingface.co/api/models",{
@@ -30,13 +25,8 @@ export default async function HomePage() {
   }
 
   useEffect(()=>{
-    const res = getModels().then((data=> setModelState(data)));
+    getModels().then((res)=>setModelState(res));
   },[])
-
-  useEffect(()=>{
-    console.log(typeof modelState)
-    console.log("this is model data",modelState)
-  },[modelState])
 
   return (
     <div>
@@ -49,8 +39,23 @@ export default async function HomePage() {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        {modelState && modelState.map((model:any, id:any) => (
-            <ModelCard key={id} model={model} />
+        {modelState && modelState.map((tool, index) => (
+          <Card onClick={() => console.log("you've clicked", tool.id)} key={index} className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer">
+            <div className="flex items-center gap-x-4">
+              <div className={cn("p-2 w-fit rounded-md", "tool.bgColor")}>
+                {/* <tool.icon className={cn("w-8 h-8", "tool.color")} /> */}
+              </div>
+              <div className="font-semibold">
+                <div>
+                    {tool?.id}
+                </div>
+                <div>
+                    {tool?.private}
+                </div>
+              </div>
+            </div>
+            <ArrowRight className="w-5 h-5" />
+          </Card>
         ))}
       </div>
     </div>
