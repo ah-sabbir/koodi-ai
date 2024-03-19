@@ -45,25 +45,32 @@ const PhotoPage = () => {
       setPhotos([]);
 
       const response = await axios.post('/api/image', values);
-      const blob = await response.data();
+      const res = await response.data;
 
       // const imageStringify = await requestImg(data);
       // const binaryData = Buffer.from(imageStringify.image);
 
       // const imageBase64 = URL.createObjectURL(
-      //   new Blob([binaryData.buffer], { type: "image/jpeg" } /* (1) */)
+      //   new Blob([res.blob.data], { type: "image/jpeg" } /* (1) */)
       // );
 
-      console.log('[IMAGE_CLIENT_RESPONSE]', blob)
+      // const imageBase64 = new Blob([res.blob.data], { type: "image/jpeg" } /* (1) */)
+
+      // const base64String = btoa(String.fromCharCode(res.blob.data));
+      // const base64String = btoa(String.fromCharCode(...new Uint8Array(data)));
+      // const base64 = Buffer.from(res.blob.data, "binary" ).toString("base64");
+
+      // console.log('[IMAGE_CLIENT_RESPONSE]', res.img)
 
       // const urls = response.data.map((image: { url: string }) => image.url);
-      const urls = ["",""]
+      const urls = [res.img]
 
       setPhotos(urls);
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
       } else {
+        console.log(error);
         toast.error("Something went wrong.");
       }
     } finally {
@@ -189,15 +196,17 @@ const PhotoPage = () => {
         {photos.length === 0 && !isLoading && (
           <Empty label="No images generated." />
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 mt-8">
           {photos.map((src) => (
-            <Card key={src} className="rounded-lg overflow-hidden">
+            <Card key={src} className="rounded-lg overflow-hidden min-w-full">
               <div className="relative aspect-square">
                 <Image
                   fill
                   alt="Generated"
                   src={src}
-                />
+                  decoding="async"
+                  data-nimg="fill"                
+                  />
               </div>
               <CardFooter className="p-2">
                 <Button onClick={() => window.open(src)} variant="secondary" className="w-full">

@@ -1,7 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 //import { Configuration, OpenAIApi } from "openai";
-
+import { join } from "path";
 import OpenAI from "openai"
 
 import { checkSubscription } from "@/lib/subscription";
@@ -40,7 +40,7 @@ import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
 const getTemplate = (prompt:Zod.ZodString)=> {
   return JSON.stringify({
-    inputs: `<s>[INST]Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: You are a graphics designer. You must design any graphics or image. Use stable diffusion.. [QUESTION]:${prompt}[/INST]`,
+    inputs: `<s>[INST]Please ignore all previous instructions. I want you to only answer in English. Please answer the following question about the opened page content to the best of your ability and provided context. Be precise and helpful. Do not hallucinate and do not come up with facts you are not sure about. elaborate the answer as much possible. [CONTEXT]: You are a graphics designer. You must design any graphics or image. Use stable diffusion.. [COMMAND]:${prompt}[/INST]`,
     parameters: {
         "return_full_text": false
     },
@@ -57,7 +57,8 @@ const getTemplate = (prompt:Zod.ZodString)=> {
 
 
 export async function POST(
-  req: Request
+  req: Request,
+  res: NextResponse
 ) {
   try {
     const { userId } = auth();
@@ -118,7 +119,8 @@ export async function POST(
 
 
 const response = await fetch(
-  'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', 
+  // 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', 
+  'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2', 
   //   // url: "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
   //   // url: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
   //   url: "https://api-inference.huggingface.co/models/google/gemma-7b-it",
@@ -128,36 +130,22 @@ const response = await fetch(
   //   // url: "https://ahsabbir104-openchat-openchat-3-5-0106.hf.space/run/predict",
   {
   method: 'POST',
-  body:getTemplate(prompt),
+  // body:getTemplate(prompt),
+  body:JSON.stringify({inputs:`<s>[INST]You must design any graphics or image. Use stable diffusion. [PROMPT]:${prompt}.[/INST]`}),
   headers: {
     'content-type': 'application/json',
-    'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`
+    'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+    responseType: 'arraybuffer',
   }
 });
 
 const blob  = await response.blob();
-const newBlob = new Blob([blob]);
+let bytes = await blob.arrayBuffer();
+const buffer = Buffer.from(bytes).toString("base64");
+const path = join('/', 'tmp', "generated")
 
-const headers = new Headers();
 
-headers.set("Content-Type", "image/*");
-
-// const blob = await response.blob();
-// let ab = await blob.arrayBuffer();
-// let object = {
-//   image: Array.from(new Uint8Array(ab)),
-//   name: "image",
-// };
-
-// return object;
-
-// Access Limit for the users
-    // if (!isPro) {
-    //   await incrementApiLimit();
-    // }
-  // console.log('[IMAGE_API_RESPONSE]', newBlob)
-  return new NextResponse(blob, { status: 200, statusText: "OK", headers });
-    // return NextResponse.json({status:200, img: newBlob});
+    return NextResponse.json({status:200, img:`data:image/jpeg;base64, ${buffer}`});
   } catch (error) {
     console.log('[IMAGE_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
