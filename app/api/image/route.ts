@@ -120,7 +120,7 @@ export async function POST(
 
 const response = await fetch(
   // 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', 
-  'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2', 
+  'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', 
   //   // url: "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
   //   // url: "https://api-inference.huggingface.co/models/google/gemma-2b-it",
   //   url: "https://api-inference.huggingface.co/models/google/gemma-7b-it",
@@ -131,7 +131,7 @@ const response = await fetch(
   {
   method: 'POST',
   // body:getTemplate(prompt),
-  body:JSON.stringify({inputs:`<s>[INST]You must design any graphics or image. Use stable diffusion. [PROMPT]:${prompt}.[/INST]`}),
+  body:JSON.stringify({inputs:`${prompt}`}),
   headers: {
     'content-type': 'application/json',
     'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
@@ -140,12 +140,23 @@ const response = await fetch(
 });
 
 const blob  = await response.blob();
-let bytes = await blob.arrayBuffer();
+let bytes:any = await blob.arrayBuffer();
 const buffer = Buffer.from(bytes).toString("base64");
+const base64buffer = Buffer.from(bytes, 'binary').toString('base64');
 const path = join('/', 'tmp', "generated")
 
+const contentType = response.headers.get('content-type');
 
-    return NextResponse.json({status:200, img:`data:image/jpeg;base64, ${buffer}`});
+if(contentType==='application/json'){
+  // const d = await response.json();
+  // console.log('[IMAGE_ERROR]', response.body);
+  return new NextResponse("Internal Error", { status: 500 });
+}
+
+    console.log('[IMAGE_API_RESPONSE]: ', `data:${response.headers.get('content-type')};base64,${base64buffer}`)
+    // console.log('[IMAGE_API_RESPONSE]: ', base64buffer)
+    // console.log('[CONTENT_TYPE]: ', response.headers.get('content-type'))
+    return NextResponse.json({status:200, img:`data:${response.headers.get('content-type')};base64,${base64buffer}`});
   } catch (error) {
     console.log('[IMAGE_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
