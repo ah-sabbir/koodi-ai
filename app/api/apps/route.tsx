@@ -8,7 +8,7 @@ export async function GET(
     req: Request
 ){
     try {
-        const appList = await prismadb.userApp.findAll()
+        const appList = await prismadb.userApp.findMany()
         
         return NextResponse.json({status:200, content: appList});
     } catch (error) {
