@@ -27,7 +27,7 @@ Features:
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next13-ai-saas.git
+git clone https://github.com/ah-sabbir/koodi-ai.git
 ```
 
 ### Install packages
@@ -36,7 +36,7 @@ git clone https://github.com/AntonioErdeljac/next13-ai-saas.git
 npm i
 ```
 
-### Setup .env file
+### Setup .env file Please check .env.example
 
 
 ```js
@@ -61,7 +61,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
 ### Setup Prisma
 
-Add MySQL Database (I used PlanetScale)
+Add MySQL Database (I used aiven)
 
 ```shell
 npx prisma db push
